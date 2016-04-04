@@ -11,7 +11,7 @@ namespace assignment1
 {
     class UserInterface
     {
-        const int maxMenuChoice = 5;
+        const int maxMenuChoice = 6;
         //---------------------------------------------------
         //Public Methods
         //---------------------------------------------------
@@ -77,28 +77,19 @@ namespace assignment1
             return new string[] { id, description, pack };
         }
 
-        //Display Import Success
-        public void DisplayImportSuccess()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Wine List Has Been Imported Successfully");
-        }
-
-        //Display Import Error
-        public void DisplayImportError()
-        {
-            Console.WriteLine();
-            Console.WriteLine("There was an error importing the CSV");
-        }
-
         //Display All Items
         public void DisplayAllItems(string[] allItemsOutput)
         {
+            Console.WriteLine();
+            Console.WriteLine("Fetching items...");
             Console.WriteLine();
             foreach (string itemOutput in allItemsOutput)
             {
                 Console.WriteLine(itemOutput);
             }
+            Console.WriteLine();
+            Console.WriteLine("***Printing Complete***");
+            Console.WriteLine();
         }
 
         //Display All Items Error
@@ -138,6 +129,56 @@ namespace assignment1
         }
 
 
+
+        // >Get the details of the item to update.
+        public string[] GetItemToUpdate()
+        {
+            Console.WriteLine();
+            Console.WriteLine("What is the Id of the item to update?");
+            Console.Write("> ");
+            string id = Console.ReadLine();
+            Console.WriteLine("What is the items Description?");
+            Console.Write("> ");
+            string description = Console.ReadLine();
+            Console.WriteLine("What is the items Pack?");
+            Console.Write("> ");
+            string pack = Console.ReadLine();
+
+            return new string[] { id, description, pack };
+        }
+
+        // >Display Beverage does not exist error.
+        public void BeverageDoesNotExistError()
+        {
+            Console.WriteLine();
+            Console.WriteLine("!! There is no Item With That Id !!");
+        }
+
+        // >Display success messege for item update.
+        public void DisplayItemUpdateSuccess()
+        {
+            Console.WriteLine();
+            Console.WriteLine("The Item was successfully Updated");
+        }
+
+        // >Get the id of the item to delete.
+        public string GetIdToDelete()
+        {
+            Console.WriteLine("What is the items Id?");
+            Console.Write("> ");
+            string id = Console.ReadLine();
+
+            return id;
+        }
+
+        // >Display Item deleted message.
+        public void DisplayItemDeletedSuccess()
+        {
+            Console.WriteLine();
+            Console.WriteLine("The Item was successfully Deleted");
+        }
+
+
         //---------------------------------------------------
         //Private Methods
         //---------------------------------------------------
@@ -148,11 +189,12 @@ namespace assignment1
             Console.WriteLine();
             Console.WriteLine("What would you like to do?");
             Console.WriteLine();
-            Console.WriteLine("1. Load Wine List From CSV");
-            Console.WriteLine("2. Print The Entire List Of Items");
-            Console.WriteLine("3. Search For An Item");
-            Console.WriteLine("4. Add New Item To The List");
-            Console.WriteLine("5. Exit Program");
+            Console.WriteLine("1. Print The Entire List Of Items");
+            Console.WriteLine("2. Search For An Item");
+            Console.WriteLine("3. Add New Item To The List");
+            Console.WriteLine("4. Update an Item in The List");
+            Console.WriteLine("5. Delete an Item From The List");
+            Console.WriteLine("6. Exit Program");
         }
 
         //Display the Prompt

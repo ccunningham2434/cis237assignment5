@@ -21,20 +21,11 @@ namespace assignment1
     {
         static void Main(string[] args)
         {
-            //Set a constant for the size of the collection
-            const int wineItemCollectionSize = 4000;
-
-            //Set a constant for the path to the CSV File
-            const string pathToCSVFile = "../../../datafiles/winelist.csv";
-
             //Create an instance of the UserInterface class
             UserInterface userInterface = new UserInterface();
 
             //Create an instance of the WineItemCollection class
-            IWineCollection wineItemCollection = new WineItemCollection(wineItemCollectionSize);
-
-            //Create an instance of the CSVProcessor class
-            CSVProcessor csvProcessor = new CSVProcessor();
+            IWineCollection wineItemCollection = new WineItemCollection();
 
             //Display the Welcome Message to the user
             userInterface.DisplayWelcomeGreeting();
@@ -43,26 +34,11 @@ namespace assignment1
             //This is the 'primer' run of displaying and getting.
             int choice = userInterface.DisplayMenuAndGetResponse();
 
-            while (choice != 5)
+            while (choice != 6)
             {
                 switch (choice)
                 {
                     case 1:
-                        //Load the CSV File
-                        bool success = csvProcessor.ImportCSV(wineItemCollection, pathToCSVFile);
-                        if (success)
-                        {
-                            //Display Success Message
-                            userInterface.DisplayImportSuccess();
-                        }
-                        else
-                        {
-                            //Display Fail Message
-                            userInterface.DisplayImportError();
-                        }
-                        break;
-
-                    case 2:
                         //Print Entire List Of Items
                         string[] allItems = wineItemCollection.GetPrintStringsForAllItems();
                         if (allItems.Length > 0)
@@ -77,7 +53,7 @@ namespace assignment1
                         }
                         break;
 
-                    case 3:
+                    case 2:
                         //Search For An Item
                         string searchQuery = userInterface.GetSearchQuery();
                         string itemInformation = wineItemCollection.FindById(searchQuery);
@@ -91,9 +67,10 @@ namespace assignment1
                         }
                         break;
 
-                    case 4:
+                    case 3:
                         //Add A New Item To The List
                         string[] newItemInformation = userInterface.GetNewItemInformation();
+                        // >Check if the input id already exists.
                         if (wineItemCollection.FindById(newItemInformation[0]) == null)
                         {
                             wineItemCollection.AddNewItem(newItemInformation[0], newItemInformation[1], newItemInformation[2]);
@@ -102,6 +79,37 @@ namespace assignment1
                         else
                         {
                             userInterface.DisplayItemAlreadyExistsError();
+                        }
+                        break;
+
+                    case 4:
+                        // >Update an existing item.
+                        string[] itemToUpdate = userInterface.GetItemToUpdate();
+                        // >Check if the input id exists.
+                        if (wineItemCollection.FindById(itemToUpdate[0]) != null)
+                        {
+                            wineItemCollection.UpdateItem(itemToUpdate[0], itemToUpdate[1], itemToUpdate[2]);
+                            userInterface.DisplayItemUpdateSuccess();
+                        }
+                        else
+                        {
+                            userInterface.BeverageDoesNotExistError();
+                        }
+                        break;
+
+                    case 5:
+                        // >Delete an item.
+
+                        string itemToDelete = userInterface.GetIdToDelete();
+                        // >Check if the input id exists.
+                        if (wineItemCollection.FindById(itemToDelete) != null)
+                        {
+                            wineItemCollection.DeleteItem(itemToDelete);
+                            userInterface.DisplayItemDeletedSuccess();
+                        }
+                        else
+                        {
+                            userInterface.BeverageDoesNotExistError();
                         }
                         break;
                 }

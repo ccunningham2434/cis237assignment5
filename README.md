@@ -3,6 +3,7 @@
 ## Due 4-11-2016
 
 ## Author
+Chad Cunningham
 
 ## Description
 
@@ -61,7 +62,8 @@ Solution Requirements:
 
 
 ## Outside Resources Used
+None.
 
 ## Known Problems, Issues, And/Or Errors in the Program
-
+None Known.
 

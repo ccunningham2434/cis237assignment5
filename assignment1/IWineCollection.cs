@@ -13,5 +13,9 @@ namespace assignment1
         string[] GetPrintStringsForAllItems();
 
         string FindById(string id);
+
+        void UpdateItem(string id, string description, string pack);
+
+        void DeleteItem(string id);
     }
 }
